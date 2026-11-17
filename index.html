@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Moo Home Server</title>
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--txt:#f1f5f9;--mut:#94a3b8;--acc:#38bdf8}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:20px 16px 40px}
+h1{font-size:24px;margin:4px 0 2px}.sub{color:var(--mut);font-size:14px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+a.tile{display:flex;flex-direction:column;gap:6px;background:var(--card);border-radius:18px;padding:18px 14px;color:var(--txt);text-decoration:none;min-height:130px;border:1px solid #334155}
+a.tile:active{transform:scale(.97)}
+.ic{font-size:36px}.nm{font-weight:700;font-size:17px}.ds{color:var(--mut);font-size:12.5px}
+.box{background:var(--card);border-radius:14px;padding:14px;margin-top:18px;font-size:14px;line-height:1.5;border:1px solid #334155}
+.box b{color:var(--acc)}code{background:#0b1220;padding:2px 6px;border-radius:6px;font-size:12.5px}
+input{width:100%;padding:10px;border-radius:10px;border:1px solid #334155;background:#0b1220;color:var(--txt);font-size:15px;margin-top:6px}
+</style>
+</head>
+<body>
+<h1>🐮 Moo Home Server</h1>
+<div class="sub">Turn on <b>Tailscale</b> first, or nothing will load.</div>
+<div class="grid" id="grid"></div>
+
+<div class="box"><b>Phone apps to install (Play Store)</b><br>
+🎬 <b>Jellyfin</b>: server <code id="a1"></code><br>
+🎵 <b>Symfonium</b> or <b>Substreamer</b>: Subsonic server <code id="a2"></code><br>
+📤 <b>Syncthing-Fork</b>: auto-uploads a phone folder to the server<br>
+📷 <b>Ente Photos</b>: server <code id="a3"></code></div>
+
+<div class="box"><b>Server address</b> (change only if it moves)
+<input id="ip" inputmode="decimal"></div>
+
+<script>
+const D="100.99.20.42";
+let ip; try{ip=localStorage.getItem("srv")||D}catch(e){ip=D}
+const tiles=[
+ ["📤","Upload / Files","Syncthing — phone folders sync to server",8384],
+ ["🎬","Movies & Shows","Jellyfin video library",8096],
+ ["🎵","Music","Navidrome — stream your library",4533],
+ ["📷","Photos","Ente web",3000]];
+function draw(){
+ document.getElementById("grid").innerHTML=tiles.map(t=>`<a class="tile" href="http://${ip}:${t[3]}" target="_blank" rel="noopener"><span class="ic">${t[0]}</span><span class="nm">${t[1]}</span><span class="ds">${t[2]}</span></a>`).join("");
+ a1.textContent=`http://${ip}:8096`;a2.textContent=`http://${ip}:4533`;a3.textContent=`http://${ip}:8080`;
+}
+const box=document.getElementById("ip");box.value=ip;
+box.onchange=()=>{ip=box.value.trim()||D;try{localStorage.setItem("srv",ip)}catch(e){}draw()};
+draw();
+</script>
+</body>
+</html>
