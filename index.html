@@ -22,8 +22,13 @@ input{width:100%;padding:10px;border-radius:10px;border:1px solid #334155;backgr
 </head>
 <body>
 <h1>🐮 Moo Home Server</h1>
-<div class="sub">Turn on <b>Tailscale</b> first, or nothing will load.</div>
+<div class="sub">Top row needs <b>Tailscale</b> on. Public row works anywhere.</div>
 <div class="grid" id="grid"></div>
+<h2 style="font-size:15px;color:var(--mut);margin:22px 2px 10px;text-transform:uppercase;letter-spacing:.05em">Public — works without Tailscale</h2>
+<div class="grid">
+<a class="tile" href="https://familyserver1.tail86ad05.ts.net" target="_blank" rel="noopener"><span class="ic">📂</span><span class="nm">Files (public)</span><span class="ds">Upload &amp; download. Friends use incoming/video or incoming/music</span></a>
+<a class="tile" href="https://familyserver1.tail86ad05.ts.net:8443" target="_blank" rel="noopener"><span class="ic">🍿</span><span class="nm">Jellyfin (public)</span><span class="ds">Stream movies, shows, music from anywhere</span></a>
+</div>
 
 <div class="box"><b>Phone apps to install (Play Store)</b><br>
 🎬 <b>Jellyfin</b>: server <code id="a1"></code><br>
